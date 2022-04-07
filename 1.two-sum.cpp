@@ -8,18 +8,19 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        int a = 0;
-        int b = 0;
-        for(int i=0; i<nums.size()-1; i++){
+        vector<int> v;
+        v.reserve(2); // reserve more memory for 4 elements in advance.
+        unordered_map<int, int> maps;
+        for(int i=0; i<nums.size(); i++){
            int diff = target - nums[i];
-           for(int j = i+1; j<nums.size(); j++){
-               if(nums[j] == diff){
-                   a = i;
-                   b = j;
-               }
+           if(maps.find(diff) == maps.end()) {
+            maps.insert(make_pair(nums[i], i));
+           } else {
+            v.push_back(i);
+            v.push_back(maps[diff]);
            }
         }
-        return {a, b};
+        return v;
     }
 };
 // @lc code=end
